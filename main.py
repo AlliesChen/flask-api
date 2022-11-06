@@ -9,6 +9,7 @@ app = Flask(__name__)
 load_dotenv()
 MONGODB_URI = os.getenv('MONGODB_URI')
 client = MongoClient(MONGODB_URI)
+print("MongoDB env: ", client)
 db = client["thirty_days_of_python"]
 
 def initiate_data():
@@ -78,7 +79,7 @@ def single_student(id):
     try:
         student = db.students.find({"_id": ObjectId(id)})
         json_data = dumps(student)
-
+        
         return Response(json_data, mimetype="application/json")
     except Exception as err:
 
